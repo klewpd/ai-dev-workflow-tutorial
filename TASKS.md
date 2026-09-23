@@ -29,14 +29,6 @@ Commit:
 
 ## In Progress
 
-### TASK-5: Category and region breakdowns
-Add side-by-side bar charts for sales by category and by region (FR-3, FR-4).
-- [ ] Category chart shows all 5 categories, sorted highest to lowest, with Electronics on top
-- [ ] Region chart shows all 4 regions, sorted highest to lowest
-- [ ] Both charts have clear labels and hover tooltips with exact values
-
-Commit:
-
 ## Done
 
 ### TASK-1: Environment setup and project initialization
@@ -72,3 +64,12 @@ Add an interactive Plotly line chart of sales over time (FR-2).
 
 Commit: 7510258
 Notes: clean
+
+### TASK-5: Category and region breakdowns
+Add side-by-side bar charts for sales by category and by region (FR-3, FR-4).
+- [x] Category chart shows all 5 categories, sorted highest to lowest, with Electronics on top
+- [x] Region chart shows all 4 regions, sorted highest to lowest
+- [x] Both charts have clear labels and hover tooltips with exact values
+
+Commit: 663c47b
+Notes: Claude's first `streamlit run` log check hit an old server already running on port 8501 (its own instance couldn't bind), so the "log clean" result was invalid; re-ran on port 8599 and it was clean. No code changes by me.
