@@ -12,14 +12,6 @@ A milestone moves to Done only when:
 
 ## To Do
 
-### TASK-2: Data loading and basic structure
-Load `data/sales-data.csv` into a Pandas DataFrame with correct column types.
-- [ ] CSV loads with `date` parsed as a date and `quantity`, `unit_price`, `total_amount` as numbers
-- [ ] All 482 records load, with the 5 categories and 4 regions present
-- [ ] Loading logic lives in its own function (modular, commented)
-
-Commit:
-
 ### TASK-3: KPI cards
 Display Total Sales and Total Orders prominently at the top of the dashboard (FR-1).
 - [ ] Total Sales shows as currency (`$X,XXX,XXX`), approximately $116,500
@@ -58,6 +50,14 @@ Publish the dashboard to a public, shareable URL (NFR-5).
 Commit:
 
 ## In Progress
+
+### TASK-2: Data loading and basic structure
+Load `data/sales-data.csv` into a Pandas DataFrame with correct column types.
+- [ ] CSV loads with `date` parsed as a date and `quantity`, `unit_price`, `total_amount` as numbers
+- [ ] All 482 records load, with the 5 categories and 4 regions present
+- [ ] Loading logic lives in its own function (modular, commented)
+
+Commit:
 
 ## Done
 
