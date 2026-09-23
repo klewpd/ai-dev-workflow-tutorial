@@ -19,12 +19,18 @@ EXPECTED_COLUMNS = [
     "total_amount",
 ]
 
+# Columns the dashboard adds up or groups by. Pandas reads a blank cell as
+# NaN (or NaT for dates) and quietly leaves it out of sums and groups, so a
+# blank here would make a total or a chart wrong with no sign of trouble.
+NO_BLANKS_COLUMNS = ["date", "total_amount", "category", "region"]
+
 
 def load_sales_data(path):
     """Read the sales CSV and check it has what the dashboard needs.
 
     Raises FileNotFoundError if the file doesn't exist, and ValueError if
-    columns are missing or total_amount isn't numeric.
+    columns are missing, total_amount isn't numeric, or date, total_amount,
+    category or region has blank values.
     """
     df = pd.read_csv(path)
 
@@ -38,6 +44,10 @@ def load_sales_data(path):
     # and summing text would silently glue the strings together.
     if not pd.api.types.is_numeric_dtype(df["total_amount"]):
         raise ValueError("Sales data column 'total_amount' must contain only numbers")
+
+    blank = [column for column in NO_BLANKS_COLUMNS if df[column].isna().any()]
+    if blank:
+        raise ValueError(f"Sales data has blank values in columns: {', '.join(blank)}")
 
     df["date"] = pd.to_datetime(df["date"])
     return df

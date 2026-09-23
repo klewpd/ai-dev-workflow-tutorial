@@ -12,7 +12,7 @@ Plain `venv/` + `requirements.txt` (exact pins: streamlit 1.64.0, pandas 3.0.6, 
 
 ```bash
 python3 -m venv venv && venv/bin/pip install -r requirements.txt   # setup
-venv/bin/python -m pytest -v                                         # all tests (16)
+venv/bin/python -m pytest -v                                         # all tests (19)
 venv/bin/python -m pytest tests/test_metrics.py::test_real_csv_totals  # one test
 venv/bin/streamlit run app.py --server.headless true --server.port 8501  # run app
 ```
@@ -29,7 +29,7 @@ venv/bin/streamlit run app.py --server.headless true --server.port 8501  # run a
 
 Two modules with a strict split:
 
-- **`metrics.py`**: pure Pandas. `load_sales_data(path)` validates the CSV (missing columns → `ValueError` listing them, checked *before* date parsing; non-numeric `total_amount` → `ValueError`, since summing a text column silently concatenates strings) and parses `date`. Calculation functions (`total_sales`, `total_orders`, `monthly_sales`, `sales_by_category`, `sales_by_region`) take a DataFrame and return a number or a small DataFrame. **Never imports Streamlit or Plotly.**
+- **`metrics.py`**: pure Pandas. `load_sales_data(path)` validates the CSV (missing columns → `ValueError` listing them, checked *before* date parsing; non-numeric `total_amount` → `ValueError`, since summing a text column silently concatenates strings; blank values in `date`, `total_amount`, `category` or `region` → `ValueError`, since Pandas silently drops NaN/NaT from sums and groups and a blank date crashes the caption) and parses `date`. Calculation functions (`total_sales`, `total_orders`, `monthly_sales`, `sales_by_category`, `sales_by_region`) take a DataFrame and return a number or a small DataFrame. **Never imports Streamlit or Plotly.**
 - **`app.py`**: loads data through an `@st.cache_data` wrapper, calls `metrics` functions, formats, and renders top to bottom. It does no arithmetic on the data beyond display formatting. It catches `(FileNotFoundError, ValueError)` and shows `st.error`; Pandas' parse errors (`DateParseError`, `EmptyDataError`, `ParserError`) are `ValueError` subclasses, so every bad-CSV case lands there instead of a traceback.
 
 Conventions that span both files:

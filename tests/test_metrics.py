@@ -69,6 +69,44 @@ def test_load_rejects_non_numeric_total_amount(tmp_path):
         metrics.load_sales_data(path)
 
 
+def test_load_rejects_blank_total_amount(tmp_path):
+    # A blank amount would be skipped by the sum, making Total Sales too low.
+    path = write_csv(
+        tmp_path,
+        CSV_HEADER
+        + "2024-01-15,ORD-1,Headphones,Audio,North,2,49.99,99.98\n"
+        + "2024-01-16,ORD-2,Headphones,Audio,North,1,49.99,\n",
+    )
+    with pytest.raises(ValueError, match="blank values in columns: total_amount"):
+        metrics.load_sales_data(path)
+
+
+def test_load_rejects_blank_category_and_region(tmp_path):
+    # A row with no category or region would be left out of the bar charts,
+    # so the bars would no longer add up to Total Sales.
+    path = write_csv(
+        tmp_path,
+        CSV_HEADER
+        + "2024-01-15,ORD-1,Headphones,Audio,North,2,49.99,99.98\n"
+        + "2024-01-16,ORD-2,Headphones,,,1,49.99,49.99\n",
+    )
+    with pytest.raises(ValueError, match="blank values in columns: category, region"):
+        metrics.load_sales_data(path)
+
+
+def test_load_rejects_blank_date(tmp_path):
+    # A blank date can't be placed in a month, and would crash the page's
+    # date-range caption instead of showing a clear error.
+    path = write_csv(
+        tmp_path,
+        CSV_HEADER
+        + "2024-01-15,ORD-1,Headphones,Audio,North,2,49.99,99.98\n"
+        + ",ORD-2,Headphones,Audio,North,1,49.99,49.99\n",
+    )
+    with pytest.raises(ValueError, match="blank values in columns: date"):
+        metrics.load_sales_data(path)
+
+
 def test_load_missing_file_raises_file_not_found(tmp_path):
     with pytest.raises(FileNotFoundError):
         metrics.load_sales_data(tmp_path / "does-not-exist.csv")
