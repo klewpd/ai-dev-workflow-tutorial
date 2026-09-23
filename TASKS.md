@@ -44,13 +44,6 @@ Commit:
 
 ## In Progress
 
-### TASK-3: KPI cards
-Display Total Sales and Total Orders prominently at the top of the dashboard (FR-1).
-- [ ] Total Sales shows as currency (`$X,XXX,XXX`), approximately $116,500
-- [ ] Total Orders shows 482 with thousands separators
-
-Commit:
-
 ## Done
 
 ### TASK-1: Environment setup and project initialization
@@ -69,4 +62,12 @@ Load `data/sales-data.csv` into a Pandas DataFrame with correct column types.
 - [x] Loading logic lives in its own function (modular, commented)
 
 Commit: fcd63a1
+Notes: clean
+
+### TASK-3: KPI cards
+Display Total Sales and Total Orders prominently at the top of the dashboard (FR-1).
+- [x] Total Sales shows as currency (`$X,XXX,XXX`), approximately $116,500
+- [x] Total Orders shows 482 with thousands separators
+
+Commit: 3d0f4c2
 Notes: clean
