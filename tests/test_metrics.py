@@ -77,3 +77,43 @@ def test_load_missing_file_raises_file_not_found(tmp_path):
 def test_real_csv_loads_all_rows(real_sales):
     assert len(real_sales) == 482
     assert pd.api.types.is_datetime64_any_dtype(real_sales["date"])
+
+
+# --- Small hand-made data ---------------------------------------------------
+
+
+@pytest.fixture
+def small_sales():
+    """Five rows whose totals are easy to add up by hand.
+
+    Order A3 has two rows (two items in one order), so it must count once.
+    Totals: sales 100.0; orders 4; Jan 30, Feb 55, Mar 15;
+    Wearables 65, Audio 30, Accessories 5; North 60, South 35, East 5.
+    """
+    return pd.DataFrame(
+        {
+            "date": pd.to_datetime(
+                ["2024-01-05", "2024-01-20", "2024-02-03", "2024-02-10", "2024-03-15"]
+            ),
+            "order_id": ["A1", "A2", "A3", "A3", "A4"],
+            "category": ["Audio", "Audio", "Wearables", "Accessories", "Wearables"],
+            "region": ["North", "South", "North", "East", "South"],
+            "total_amount": [10.0, 20.0, 50.0, 5.0, 15.0],
+        }
+    )
+
+
+# --- total_sales / total_orders ---------------------------------------------
+
+
+def test_total_sales_adds_every_row(small_sales):
+    assert metrics.total_sales(small_sales) == 100.0
+
+
+def test_total_orders_counts_each_order_once(small_sales):
+    assert metrics.total_orders(small_sales) == 4
+
+
+def test_real_csv_totals(real_sales):
+    assert metrics.total_sales(real_sales) == pytest.approx(116500.21)
+    assert metrics.total_orders(real_sales) == 482

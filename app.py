@@ -30,3 +30,8 @@ except (FileNotFoundError, ValueError) as error:
     st.stop()
 
 st.caption(f"Sales data: {df['date'].min():%b %Y} – {df['date'].max():%b %Y}")
+
+# --- KPI cards --------------------------------------------------------------
+sales_card, orders_card = st.columns(2)
+sales_card.metric("Total Sales", f"${metrics.total_sales(df):,.0f}")
+orders_card.metric("Total Orders", f"{metrics.total_orders(df):,}")
