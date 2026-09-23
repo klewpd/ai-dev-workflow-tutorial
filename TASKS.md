@@ -12,13 +12,6 @@ A milestone moves to Done only when:
 
 ## To Do
 
-### TASK-7: Deploy to Streamlit Community Cloud
-Publish the dashboard to a public, shareable URL (NFR-5).
-- [ ] App is deployed to Streamlit Community Cloud from the GitHub repo
-- [ ] Public URL loads the dashboard and is added to the README
-
-Commit:
-
 ## In Progress
 
 ## Done
@@ -74,3 +67,11 @@ Verify accuracy, performance, and a professional appearance (NFR-1, NFR-2).
 
 Commit: 252787a
 Notes: clean
+
+### TASK-7: Deploy to Streamlit Community Cloud
+Publish the dashboard to a public, shareable URL (NFR-5).
+- [x] App is deployed to Streamlit Community Cloud from the GitHub repo
+- [x] Public URL loads the dashboard and is added to the README
+
+URL: https://sales-dashboard-klew.streamlit.app/
+Commit: 163eac9 (the merge on main that Streamlit Cloud deployed)
