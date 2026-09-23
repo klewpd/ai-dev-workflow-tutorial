@@ -51,14 +51,6 @@ Commit:
 
 ## In Progress
 
-### TASK-2: Data loading and basic structure
-Load `data/sales-data.csv` into a Pandas DataFrame with correct column types.
-- [ ] CSV loads with `date` parsed as a date and `quantity`, `unit_price`, `total_amount` as numbers
-- [ ] All 482 records load, with the 5 categories and 4 regions present
-- [ ] Loading logic lives in its own function (modular, commented)
-
-Commit:
-
 ## Done
 
 ### TASK-1: Environment setup and project initialization
@@ -69,3 +61,12 @@ Set up the Python environment, dependencies, and a minimal Streamlit app.
 
 Commit: c9174e9
 Notes: Claude's first background `streamlit run` exited on Streamlit's first-run email prompt; fixed by adding `--server.headless true`. No changes by me.
+
+### TASK-2: Data loading and basic structure
+Load `data/sales-data.csv` into a Pandas DataFrame with correct column types.
+- [x] CSV loads with `date` parsed as a date and `quantity`, `unit_price`, `total_amount` as numbers
+- [x] All 482 records load, with the 5 categories and 4 regions present
+- [x] Loading logic lives in its own function (modular, commented)
+
+Commit: fcd63a1
+Notes: clean
