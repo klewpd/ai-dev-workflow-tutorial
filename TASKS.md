@@ -74,4 +74,4 @@ Publish the dashboard to a public, shareable URL (NFR-5).
 - [x] Public URL loads the dashboard and is added to the README
 
 URL: https://sales-dashboard-klew.streamlit.app/
-Commit: 163eac9 (the merge on main that Streamlit Cloud deployed)
+Commit: d066e51
