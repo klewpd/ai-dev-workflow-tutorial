@@ -55,3 +55,42 @@ trend_chart = px.line(
 trend_chart.update_traces(hovertemplate="%{x|%b %Y}<br>$%{y:,.2f}<extra></extra>")
 trend_chart.update_layout(xaxis_tickformat="%b %Y", yaxis_tickprefix="$", yaxis_tickformat=",")
 st.plotly_chart(trend_chart, width="stretch")
+
+
+# --- Category and region breakdowns -----------------------------------------
+
+
+def bar_chart(data, column, label):
+    """Horizontal bar chart of sales per group, with the largest bar on top."""
+    chart = px.bar(
+        data,
+        x="total_amount",
+        y=column,
+        orientation="h",
+        labels={"total_amount": "Sales ($)", column: label},
+        color_discrete_sequence=[ACCENT_COLOR],
+    )
+    chart.update_traces(hovertemplate="%{y}<br>$%{x:,.2f}<extra></extra>")
+    # Plotly draws horizontal bars bottom-up; "total ascending" puts the
+    # smallest at the bottom, so the largest ends up on top.
+    chart.update_layout(
+        yaxis={"categoryorder": "total ascending"},
+        xaxis_tickprefix="$",
+        xaxis_tickformat=",",
+    )
+    return chart
+
+
+category_column, region_column = st.columns(2)
+
+with category_column:
+    st.subheader("Sales by Category")
+    st.plotly_chart(
+        bar_chart(metrics.sales_by_category(df), "category", "Category"), width="stretch"
+    )
+
+with region_column:
+    st.subheader("Sales by Region")
+    st.plotly_chart(
+        bar_chart(metrics.sales_by_region(df), "region", "Region"), width="stretch"
+    )

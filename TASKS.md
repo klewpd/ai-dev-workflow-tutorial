@@ -12,14 +12,6 @@ A milestone moves to Done only when:
 
 ## To Do
 
-### TASK-5: Category and region breakdowns
-Add side-by-side bar charts for sales by category and by region (FR-3, FR-4).
-- [ ] Category chart shows all 5 categories, sorted highest to lowest, with Electronics on top
-- [ ] Region chart shows all 4 regions, sorted highest to lowest
-- [ ] Both charts have clear labels and hover tooltips with exact values
-
-Commit:
-
 ### TASK-6: Testing and refinement
 Verify accuracy, performance, and a professional appearance (NFR-1, NFR-2).
 - [ ] Dashboard values match calculations done directly from the CSV
@@ -36,6 +28,14 @@ Publish the dashboard to a public, shareable URL (NFR-5).
 Commit:
 
 ## In Progress
+
+### TASK-5: Category and region breakdowns
+Add side-by-side bar charts for sales by category and by region (FR-3, FR-4).
+- [ ] Category chart shows all 5 categories, sorted highest to lowest, with Electronics on top
+- [ ] Region chart shows all 4 regions, sorted highest to lowest
+- [ ] Both charts have clear labels and hover tooltips with exact values
+
+Commit:
 
 ## Done
 

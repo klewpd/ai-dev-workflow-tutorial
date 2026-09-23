@@ -151,3 +151,36 @@ def test_real_csv_has_twelve_months(real_sales):
     result = metrics.monthly_sales(real_sales)
     assert len(result) == 12
     assert result["total_amount"].sum() == pytest.approx(116500.21)
+
+
+# --- sales_by_category / sales_by_region ------------------------------------
+
+
+def test_sales_by_category_sorted_highest_first(small_sales):
+    result = metrics.sales_by_category(small_sales)
+    assert list(result.columns) == ["category", "total_amount"]
+    assert list(result["category"]) == ["Wearables", "Audio", "Accessories"]
+    assert list(result["total_amount"]) == [65.0, 30.0, 5.0]
+
+
+def test_sales_by_region_sorted_highest_first(small_sales):
+    result = metrics.sales_by_region(small_sales)
+    assert list(result.columns) == ["region", "total_amount"]
+    assert list(result["region"]) == ["North", "South", "East"]
+    assert list(result["total_amount"]) == [60.0, 35.0, 5.0]
+
+
+def test_real_csv_category_order(real_sales):
+    result = metrics.sales_by_category(real_sales)
+    assert list(result["category"]) == [
+        "Electronics",
+        "Wearables",
+        "Audio",
+        "Smart Home",
+        "Accessories",
+    ]
+
+
+def test_real_csv_region_order(real_sales):
+    result = metrics.sales_by_region(real_sales)
+    assert list(result["region"]) == ["North", "West", "East", "South"]
