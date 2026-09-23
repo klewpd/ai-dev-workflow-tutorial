@@ -21,14 +21,6 @@ Commit:
 
 ## In Progress
 
-### TASK-6: Testing and refinement
-Verify accuracy, performance, and a professional appearance (NFR-1, NFR-2).
-- [ ] Dashboard values match calculations done directly from the CSV
-- [ ] Dashboard loads within 5 seconds with no errors or warnings in the terminal
-- [ ] Layout matches the PRD mockup and is suitable for an executive presentation
-
-Commit:
-
 ## Done
 
 ### TASK-1: Environment setup and project initialization
@@ -73,3 +65,12 @@ Add side-by-side bar charts for sales by category and by region (FR-3, FR-4).
 
 Commit: 663c47b
 Notes: Claude's first `streamlit run` log check hit an old server already running on port 8501 (its own instance couldn't bind), so the "log clean" result was invalid; re-ran on port 8599 and it was clean. No code changes by me.
+
+### TASK-6: Testing and refinement
+Verify accuracy, performance, and a professional appearance (NFR-1, NFR-2).
+- [x] Dashboard values match calculations done directly from the CSV
+- [x] Dashboard loads within 5 seconds with no errors or warnings in the terminal
+- [x] Layout matches the PRD mockup and is suitable for an executive presentation
+
+Commit: 252787a
+Notes: clean
