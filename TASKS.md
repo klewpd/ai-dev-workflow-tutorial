@@ -59,12 +59,13 @@ Commit:
 
 ## In Progress
 
+## Done
+
 ### TASK-1: Environment setup and project initialization
 Set up the Python environment, dependencies, and a minimal Streamlit app.
-- [ ] `requirements.txt` lists `streamlit`, `pandas`, and `plotly`
-- [ ] `app.py` exists and shows a "ShopSmart Sales Dashboard" title
-- [ ] `streamlit run app.py` opens the app in the browser
+- [x] `requirements.txt` lists `streamlit`, `pandas`, and `plotly`
+- [x] `app.py` exists and shows a "ShopSmart Sales Dashboard" title
+- [x] `streamlit run app.py` opens the app in the browser
 
-Commit:
-
-## Done
+Commit: c9174e9
+Notes: Claude's first background `streamlit run` exited on Streamlit's first-run email prompt; fixed by adding `--server.headless true`. No changes by me.
