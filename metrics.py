@@ -51,3 +51,13 @@ def total_sales(df):
 def total_orders(df):
     """Number of distinct orders (an order with several rows counts once)."""
     return int(df["order_id"].nunique())
+
+
+def monthly_sales(df):
+    """Total sales for each calendar month, oldest month first.
+
+    Returns columns: month (the first day of that month) and total_amount.
+    """
+    # to_period("M") keeps the year, so Jan 2024 and Jan 2025 stay separate.
+    month = df["date"].dt.to_period("M").dt.to_timestamp().rename("month")
+    return df.groupby(month)["total_amount"].sum().reset_index()

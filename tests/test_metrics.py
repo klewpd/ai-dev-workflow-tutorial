@@ -117,3 +117,37 @@ def test_total_orders_counts_each_order_once(small_sales):
 def test_real_csv_totals(real_sales):
     assert metrics.total_sales(real_sales) == pytest.approx(116500.21)
     assert metrics.total_orders(real_sales) == 482
+
+
+# --- monthly_sales ----------------------------------------------------------
+
+
+def test_monthly_sales_groups_by_month_in_order(small_sales):
+    result = metrics.monthly_sales(small_sales)
+    assert list(result.columns) == ["month", "total_amount"]
+    assert list(result["month"]) == [
+        pd.Timestamp("2024-01-01"),
+        pd.Timestamp("2024-02-01"),
+        pd.Timestamp("2024-03-01"),
+    ]
+    assert list(result["total_amount"]) == [30.0, 55.0, 15.0]
+
+
+def test_monthly_sales_keeps_years_apart():
+    # January 2025 is listed first on purpose: the result must still be in
+    # time order, and the two Januaries must not be merged into one row.
+    df = pd.DataFrame(
+        {
+            "date": pd.to_datetime(["2025-01-10", "2024-01-10"]),
+            "total_amount": [20.0, 10.0],
+        }
+    )
+    result = metrics.monthly_sales(df)
+    assert list(result["month"]) == [pd.Timestamp("2024-01-01"), pd.Timestamp("2025-01-01")]
+    assert list(result["total_amount"]) == [10.0, 20.0]
+
+
+def test_real_csv_has_twelve_months(real_sales):
+    result = metrics.monthly_sales(real_sales)
+    assert len(result) == 12
+    assert result["total_amount"].sum() == pytest.approx(116500.21)
