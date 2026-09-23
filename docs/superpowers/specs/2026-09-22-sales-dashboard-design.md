@@ -77,7 +77,7 @@ to install, and it is harmless on Streamlit Cloud.
 
 | Function | Returns | Behavior |
 |---|---|---|
-| `load_sales_data(path)` | DataFrame | `pd.read_csv(path, parse_dates=["date"])`; raises `ValueError` naming any of the 8 expected columns that are missing |
+| `load_sales_data(path)` | DataFrame | `pd.read_csv(path)`, then raises `ValueError` naming any of the 8 expected columns that are missing, or if `total_amount` isn't numeric; then converts `date` with `pd.to_datetime` |
 | `total_sales(df)` | float | Sum of `total_amount` |
 | `total_orders(df)` | int | Number of unique `order_id` values |
 | `monthly_sales(df)` | DataFrame `month`, `total_amount` | Sum per calendar month, oldest first; `month` is a timestamp (first of the month) |
@@ -107,7 +107,7 @@ Top to bottom:
    (`yaxis.categoryorder = "total ascending"`).
 
 All charts:
-- Rendered with `st.plotly_chart(fig, use_container_width=True)`.
+- Rendered with `st.plotly_chart(fig, width="stretch")` (`use_container_width` is deprecated in Streamlit 1.64 and would print a warning).
 - Readable axis titles (e.g. "Sales ($)", "Category"), not raw column names.
 - Hover tooltips with exact values via `hovertemplate` (e.g. `$42,683.67`),
   with `<extra></extra>` to hide the trace-name box.
